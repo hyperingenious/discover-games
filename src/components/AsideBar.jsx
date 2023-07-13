@@ -16,37 +16,39 @@ const List = styled.li`
   }
 `;
 
-function SideBar() {
+function AsideBar({setGenres}) {
   return (
-    <aside style={{ paddingLeft: "1rem" }}>
-      <ul className="list-unstyled" style={{ maxWidth: "230px" }}>
-        <TheList results={results} />
-      </ul>
-    </aside>
+    <>
+      <aside style={{ paddingLeft: "1rem", maxHeight: '80vh', overflowY:'scroll'}}>
+        <ul className="list-unstyled" style={{ maxWidth: "230px" }}>
+          <TheList results={results} setGenres={setGenres} />
+        </ul>
+      </aside>
+    </>
   );
 }
 
-function TheList({ results }) {
-  return results.map((data) => <ListPrototype data={data} />);
+function TheList({ results, setGenres }) {
+  return results.map((data) => <ListPrototype data={data} key={data.id} setGenres={setGenres} />);
 }
-function ListPrototype({ data }) {
+function ListPrototype({ data, setGenres }) {
   const [active, setActive] = useState(false);
 
   return (
     <List
       className={active ? "active" : ""}
       role="button"
-      key={data.id}
       style={{
         border: active ? "2px solid" : "none",
         borderRadius: active ? "6px" : "none",
       }}
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
+      onClick={()=>setGenres(data.id)}
     >
       <img src={data.image_background} alt={data.name} />
       <h4 className="game-name fs-6 fw-normal">{data.name}</h4>
     </List>
   );
 }
-export default SideBar;
+export default AsideBar;

@@ -1,11 +1,11 @@
 import NavBar from "./components/NavBar";
-import SideBar from "./components/SideBar";
+import MainSection from "./components/MainSection";
 
 function App() {
   return (
     <>
       <NavBar />
-      <SideBar />
+      <MainSection/>
     </>
   );
 }
