@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import AsideBar from "./AsideBar";
-import ResultsBox from "./ResultsBox";
 import styled from "styled-components";
 
 const Main = styled.div`
@@ -21,29 +20,29 @@ const details = {
 function MainSection() {
   const [genres, setGenres] = useState("");
   const [genresDetails, setGenresDetails] = useState(details);
+  const [genresGameDetails, setGenresGameDetails] = useState([]);
 
   useEffect(
     function () {
-      async function fetchGame() {
+
+      async function fetchGamesOfGenres() {
         if (!genres) return;
-        
-        setGenresDetails("");
         const res = await fetch(
-          `https://api.rawg.io/api/genres/${genres}?key=9fff4d4f36a440079093d0357c74ad76`
+          `https://api.rawg.io/api/games?genres=${genres}&key=9fff4d4f36a440079093d0357c74ad76`
         );
         const response = await res.json();
         setGenresDetails(response);
-
-        return () => setGenresDetails("");
+        console.log(response);
       }
-      fetchGame();
+      fetchGamesOfGenres();
+
+
     },
     [genres]
   );
   return (
     <Main className="main-section">
       <AsideBar setGenres={setGenres} />
-      <ResultsBox data={genresDetails} />
     </Main>
   );
 }
