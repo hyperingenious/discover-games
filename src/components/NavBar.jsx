@@ -1,9 +1,15 @@
+import { useEffect } from "react";
+import { useRef } from "react";
+
 function NavBar() {
+  const inputEl = useRef(null);
+  useEffect(function () {
+    inputEl.current.focus();
+  }, []);
+
   return (
     <>
-      <nav
-        className="navbar bg-body-tertiary"
-      >
+      <nav className="navbar bg-body-tertiary">
         <div className="container-fluid">
           <a className="navbar-brand text-primary">D</a>
           <form className="d-flex" role="search" style={{ minWidth: "10rem" }}>
@@ -12,6 +18,7 @@ function NavBar() {
               type="search"
               placeholder="Search"
               aria-label="Search"
+              ref={inputEl}
             />
           </form>
           <a href="https://github.com/sauravmeghwal">

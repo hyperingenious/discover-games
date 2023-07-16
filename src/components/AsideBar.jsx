@@ -16,10 +16,18 @@ const List = styled.li`
   }
 `;
 
-function AsideBar({setGenres}) {
+function AsideBar({ setGenres }) {
   return (
     <>
-      <aside style={{ paddingLeft: "1rem", maxHeight: '80vh', overflowY:'scroll'}}>
+      <aside
+        style={{
+          paddingLeft: "1rem",
+          minWidth: "13rem",
+          maxHeight: "80vh",
+          overflowX: "hidden",
+          overflowY: "scroll",
+        }}
+      >
         <ul className="list-unstyled" style={{ maxWidth: "230px" }}>
           <TheList results={results} setGenres={setGenres} />
         </ul>
@@ -29,7 +37,9 @@ function AsideBar({setGenres}) {
 }
 
 function TheList({ results, setGenres }) {
-  return results.map((data) => <ListPrototype data={data} key={data.id} setGenres={setGenres} />);
+  return results.map((data) => (
+    <ListPrototype data={data} key={data.id} setGenres={setGenres} />
+  ));
 }
 function ListPrototype({ data, setGenres }) {
   const [active, setActive] = useState(false);
@@ -44,7 +54,7 @@ function ListPrototype({ data, setGenres }) {
       }}
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
-      onClick={()=>setGenres(data.id)}
+      onClick={() => setGenres(data.id)}
     >
       <img src={data.image_background} alt={data.name} />
       <h4 className="game-name fs-6 fw-normal">{data.name}</h4>
