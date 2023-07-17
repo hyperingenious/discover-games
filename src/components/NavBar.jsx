@@ -2,25 +2,14 @@ import { useEffect } from "react";
 import { useRef } from "react";
 
 function NavBar() {
-  const inputEl = useRef(null);
-  useEffect(function () {
-    inputEl.current.focus();
-  }, []);
+
 
   return (
     <>
-      <nav className="navbar bg-body-tertiary">
+      <nav className="navbar bg-neutral-900">
         <div className="container-fluid">
           <a className="navbar-brand text-primary">D</a>
-          <form className="d-flex" role="search" style={{ minWidth: "10rem" }}>
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-              ref={inputEl}
-            />
-          </form>
+          <Search />
           <a href="https://github.com/sauravmeghwal">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -38,5 +27,64 @@ function NavBar() {
     </>
   );
 }
+function Search() {
+    const inputEl = useRef(null);
+    useEffect(function () {
+      inputEl.current.focus();
+    }, []);
+  return (
+
+      <div
+        className="searchBar"
+        style={{
+          display: "flex",
+          width: '30rem',
+          flexDirection: "row",
+          alignItems: "center",
+        }}
+      >
+        <input
+          id="searchQueryInput"
+          type="text"
+          name="searchQueryInput"
+          placeholder="Search"
+          value=""
+          style={{
+            width: '100%',
+            height: "2.8rem",
+            background: "black",
+            outline: "none",
+            border: "none",
+            borderRadius: "1.625rem",
+            padding: "0 3.5rem 0 1.5rem",
+            fontSize: "1rem",
+          }}
+          ref={inputEl}
+        />
+        <button
+          id="searchQuerySubmit"
+          type="submit"
+          name="searchQuerySubmit"
+          style={{
+            width: "3.5rem",
+            height: "2.8rem",
+            marginLeft: "-3.5rem",
+            background: "none",
+            border: "none",
+            outline: "none",
+          }}
+        >
+          <svg style={{ width: "24px", height: "24px" }} viewBox="0 0 24 24">
+            <path
+              fill="#666666"
+              d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"
+            />
+          </svg>
+        </button>
+      </div>
+  );
+}
+
+
 
 export default NavBar;

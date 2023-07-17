@@ -1,13 +1,16 @@
 import styled from "styled-components";
 import { useState } from "react";
 import results from "./Genra";
+import PropTypes from "prop-types";
 
 const List = styled.li`
   display: flex;
   align-items: center;
   gap: 12px;
-  width: 204px;
-  padding: 0.5rem 0;
+  border-radius: 13px;
+  width: 100%;
+  padding: 0.5rem 1rem 0.5rem 0.5rem;
+
   & > img {
     width: 50px;
     height: 50px;
@@ -16,16 +19,26 @@ const List = styled.li`
   }
 `;
 
+AsideBar.propTypes = {
+  setGenres: PropTypes.func.isRequired,
+};
+
 function AsideBar({ setGenres }) {
   return (
     <>
       <aside
         style={{
-          paddingLeft: "1rem",
+          paddingLeft: "0.1rem",
           minWidth: "13rem",
+          background: "#161616",
+          marginRight: '2rem',
           maxHeight: "80vh",
-          overflowX: "hidden",
-          overflowY: "scroll",
+          borderRadius: "17px",
+          position: "sticky",
+          left: "1rem",
+          top: "2rem",
+          zIndex: 3,
+          overflow: "hidden scroll",
         }}
       >
         <ul className="list-unstyled" style={{ maxWidth: "230px" }}>
@@ -41,6 +54,11 @@ function TheList({ results, setGenres }) {
     <ListPrototype data={data} key={data.id} setGenres={setGenres} />
   ));
 }
+
+ListPrototype.propTypes = {
+  data: PropTypes.objectOf.isRequired,
+  setGenres: PropTypes.func.isRequired,
+};
 function ListPrototype({ data, setGenres }) {
   const [active, setActive] = useState(false);
 
@@ -49,15 +67,16 @@ function ListPrototype({ data, setGenres }) {
       className={active ? "active" : ""}
       role="button"
       style={{
-        border: active ? "2px solid" : "none",
-        borderRadius: active ? "6px" : "none",
+        background: active && "black",
       }}
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
-      onClick={() => setGenres(data.id)}
+      onClick={() => setGenres({ type: "updateGenre", payload: data.id })}
     >
       <img src={data.image_background} alt={data.name} />
-      <h4 className="game-name fs-6 fw-normal">{data.name}</h4>
+      <h4 className="game-name fs-6 fw-semibold fw-normal text-white-50">
+        {data.name}
+      </h4>
     </List>
   );
 }
